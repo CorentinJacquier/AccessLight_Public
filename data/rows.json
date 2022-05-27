@@ -1,0 +1,316 @@
+{
+    "badges": {
+        "Code": {
+            "displayName": "Code du badge",
+            "type": "number",
+            "isPrimaryKey": true,
+            "isForeignKey": false,
+            "isParent": true,
+            "references": "badges",
+            "parent":"users",
+            "maxlength": 7,
+            "pattern": "[0-9]",
+            "referenceParent": "badge",
+            "referenceDisplayColumn": "id",
+            "showLink": true
+        },
+        "date_creation": {
+            "displayName": "Date creation du badge",
+            "type": "date",
+            "isPrimaryKey": false,
+            "isForeignKey": false,
+            "references": ""
+        },
+        "date_invalide": {
+            "displayName": "Date expiration du badge",
+            "type": "date",
+            "isPrimaryKey": false,
+            "isForeignKey": false,
+            "references": ""
+        },
+        "rang": {
+            "displayName": "Privilege du badge",
+            "type": "number",
+            "isPrimaryKey": false,
+            "isForeignKey": true,
+            "references": "rang",
+            "referenceColumn": "num",
+            "referenceDisplayColumn": "privilege",
+            "showLink": true
+        }
+    },
+    "rang": {
+        "num": {
+            "displayName": "Numero du rang",
+            "type": "number",
+            "isPrimaryKey": true,
+            "isForeignKey": false,
+            "isParent": true,
+            "references": "rang",
+            "parent":"badges",
+            "maxlength": 5,
+            "pattern": "[0-9]",
+            "referenceParent": "rang",
+            "referenceDisplayColumn": "code",
+            "showLink": true
+        },
+        "privilege": {
+            "displayName": "Privilege du rang",
+            "type": "text",
+            "isPrimaryKey": false,
+            "isForeignKey": false,
+            "references": "",
+            "maxlength": 100
+        }
+    },
+    "historique": {
+        "datetime": {
+            "displayName": "Date",
+            "type": "datetime-local",
+            "isPrimaryKey": true,
+            "isForeignKey": false,
+            "references": "historique",
+            "showLink": false
+        },
+        "batcde": {
+            "displayName": "Batiment",
+            "type": "number",
+            "isPrimaryKey": false,
+            "isForeignKey": true,
+            "references": "batiment",
+            "referenceColumn": "Code",
+            "referenceDisplayColumn": "Nom",
+            "showLink": true
+        },
+        "ailecde": {
+            "displayName": "Aile",
+            "type": "number",
+            "isPrimaryKey": false,
+            "isForeignKey": true,
+            "references": "aile",
+            "referenceColumn": "Code",
+            "referenceDisplayColumn": "Nom",
+            "showLink": true
+        },
+        "sallecde": {
+            "displayName": "Salle",
+            "type": "number",
+            "isPrimaryKey": false,
+            "isForeignKey": true,
+            "references": "salle",
+            "referenceColumn": "Code",
+            "referenceDisplayColumn": "Nom",
+            "showLink": true
+        },
+        "badge": {
+            "displayName": "Badge",
+            "type": "number",
+            "isPrimaryKey": false,
+            "isForeignKey": true,
+            "references": "badges",
+            "referenceColumn": "code",
+            "referenceDisplayColumn": "code",
+            "showLink": true
+        },
+        "status": {
+            "displayName": "Status",
+            "type": "text",
+            "isPrimaryKey": false,
+            "isForeignKey": false,
+            "references": "",
+            "showLink": false
+        }
+    },
+    "batiment": {
+        "Code": {
+            "displayName": "Code du batiment",
+            "type": "number",
+            "isPrimaryKey": true,
+            "isForeignKey": false,
+            "isParent":true,
+            "references": "batiment",
+            "parent":"aile",
+            "maxlength": 10,
+            "pattern": "[0-9]",
+            "referenceParent": "BatCode",
+            "referenceDisplayColumn": "Nom",
+            "showLink": true
+        },
+        "Nom": {
+            "displayName": "Nom du batiment",
+            "type": "text",
+            "isPrimaryKey": false,
+            "isForeignKey": false,
+            "references": "",
+            "maxlength": 15
+        },
+        "Position": {
+            "displayName": "Position du batiment",
+            "type": "text",
+            "isPrimaryKey": false,
+            "isForeignKey": false,
+            "references": ""
+        },
+        "RangReq": {
+            "displayName": "Rang requis",
+            "type": "number",
+            "isPrimaryKey": false,
+            "isForeignKey": true,
+            "references": "rang",
+            "referenceColumn": "num",
+            "referenceDisplayColumn": "privilege",
+            "showLink": false
+        }  
+    },
+    "aile": {
+        "Code": {
+            "displayName": "Code de l'aile",
+            "type": "number",
+            "isPrimaryKey": true,
+            "isForeignKey": false,
+            "isParent":true,
+            "references": "aile",
+            "parent":"salle",
+            "maxlength": 10,
+            "pattern": "[0-9]",
+            "referenceParent": "AileCode",
+            "referenceDisplayColumn": "Nom",
+            "showLink": true
+        },
+        "Nom": {
+            "displayName": "Nom de l'aile",
+            "type": "text",
+            "isPrimaryKey": false,
+            "isForeignKey": false,
+            "references": "",
+            "maxlength": 15
+        },
+        "BatCode": {
+            "displayName": "Numero du batiment",
+            "type": "number",
+            "isPrimaryKey": false,
+            "isForeignKey": true,
+            "references": "batiment",
+            "referenceColumn": "Code",
+            "referenceDisplayColumn": "Nom",
+            "showLink": true
+        },
+        "RangReq": {
+            "displayName": "Rang requis",
+            "type": "number",
+            "isPrimaryKey": false,
+            "isForeignKey": true,
+            "references": "rang",
+            "referenceColumn": "num",
+            "referenceDisplayColumn": "privilege",
+            "showLink": false
+        }  
+    },
+    "salle": {
+        "Code": {
+            "displayName": "Code de la salle",
+            "type": "number",
+            "isPrimaryKey": true,
+            "isForeignKey": false,
+            "isParent":true,
+            "parent":"historique",
+            "references": "aile",
+            "maxlength": 10,
+            "pattern": "[0-9]",
+            "referenceParent": "sallecde",
+            "referenceDisplayColumn": "datetime",
+            "showLink": true
+        },
+        "Nom": {
+            "displayName": "Nom de la salle",
+            "type": "text",
+            "isPrimaryKey": false,
+            "isForeignKey": false,
+            "references": "",
+            "maxlength": 15
+        },
+        "AileCode": {
+            "displayName": "Numero de l'aile",
+            "type": "number",
+            "isPrimaryKey": false,
+            "isForeignKey": true,
+            "references": "aile",
+            "referenceColumn": "Code",
+            "referenceDisplayColumn": "Nom",
+            "showLink": true
+        },
+        "RangReq": {
+            "displayName": "Rang requis",
+            "type": "number",
+            "isPrimaryKey": false,
+            "isForeignKey": true,
+            "references": "rang",
+            "referenceColumn": "num",
+            "referenceDisplayColumn": "privilege",
+            "showLink": false
+        }  
+    },
+    "user": {
+        "id": {
+            "displayName": "Identifiant",
+            "type": "number",
+            "isPrimaryKey": true,
+            "isForeignKey": false,
+            "references": "users",
+            "autoIncrement": true,
+            "showLink": true
+        },
+        "email": {
+            "displayName": "Adresse e-mail",
+            "type": "text",
+            "isPrimaryKey": false,
+            "isForeignKey": false,
+            "references": ""
+        },
+        "password": {
+            "displayName": "Mot de passe",
+            "type": "password",
+            "isPrimaryKey": false,
+            "isForeignKey": false,
+            "references": "",
+            "doNotDisplay": true,
+            "hashedValue": true,
+            "minlength": 12
+        },
+        "first_name": {
+            "displayName": "Prenom",
+            "type": "text",
+            "isPrimaryKey": false,
+            "isForeignKey": false,
+            "references": "",
+            "minlength": 1
+        },
+        "last_name": {
+            "displayName": "Nom de famille",
+            "type": "text",
+            "isPrimaryKey": false,
+            "isForeignKey": false,
+            "references": "",
+            "minlength": 1
+        },
+        "role": {
+            "displayName": "Role",
+            "type": "text",
+            "isPrimaryKey": false,
+            "isForeignKey": true,
+            "references": "roles",
+            "referenceColumn": "id",
+            "referenceDisplayColumn": "name"
+        },
+        "badge": {
+            "displayName": "Badge",
+            "type": "number",
+            "isPrimaryKey": false,
+            "isForeignKey": true,
+            "references": "badges",
+            "referenceColumn": "code",
+            "referenceDisplayColumn": "code",
+            "showLink": true
+        }
+    }
+}

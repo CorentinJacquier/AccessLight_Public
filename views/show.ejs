@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="fr">
+<!-- Affichage du detail -->
+<head>
+    <!-- Import du header -->
+    <%- include('layout/head.ejs'); %>
+</head>
+
+<body>
+    <!-- Import de la barre de navigation -->
+    <%- include('layout/navigation.ejs'); %>
+    
+    <div class="content" id="swup">
+        <h3 class="title is-3">Détails</h3>
+
+        <% if(note) { %>
+            <div class="note-<%= note.type %>">
+                <p class="note-text"><%- note.text %></p>
+            </div>
+        <% } %>
+        <!-- Formulaire -->
+        <form method="POST">
+            <!-- Création des colonnes (2) -->
+            <% for (var j=0; j < Object.keys(rows).length; j++) {%>
+            <% if(j % 2 == 0) { %>
+            <div class="columns">
+                <% } %>
+                <div class="column">
+                    <div class="field">
+                        <label class="label" for="<%= Object.values(rows)[j] %>">
+                            <%= Object.values(rows)[j].displayName %>
+                        </label>
+                        <div class="control">
+                            <% if(Object.values(rows)[j].isForeignKey && Object.values(rows)[j].referenceColumn) { %>
+                                <!-- Création des menu déroulants -->
+                                <div class="select" style="width: 100%">
+                                    <select required style="width: 100%" name="<%= Object.keys(rows)[j] %>" value="<%= data[Object.keys(rows)[j]] %>">
+                                        <option selected value="<%= data[Object.keys(rows)[j]] %>"><%= data[Object.keys(rows)[j]] %> (Valeur actuelle)</option>
+                                    <% for(let m = 0; m < foreignKeys[Object.keys(rows)[j]].length; m++) { %>
+                                        <option value="<%= foreignKeys[Object.keys(rows)[j]][m].id %>"><%= foreignKeys[Object.keys(rows)[j]][m].display %></option>
+                                    <% } %>
+                                    </select>
+                                </div>
+                            <% } else if(!Object.values(rows)[j].doNotDisplay) { %>
+                                <!-- Création des champs désactivés (clé primaire) -->
+                                <input class="input" type="<%= Object.values(rows)[j].type %>"
+                                    name="<%= Object.keys(rows)[j] %>" minlength="<%= Object.values(rows)[j].minlength ? Object.values(rows)[j].minlength : 0 %>" maxlength="<%= Object.values(rows)[j].maxlength ? Object.values(rows)[j].maxlength : 255 %>" <%= Object.values(rows)[j].pattern ? ('pattern=' + Object.values(rows)[j].pattern) : "" %> value="<%= data[Object.keys(rows)[j]] %>" <% if(Object.values(rows)[j].isPrimaryKey) { %>disabled<% } %>>
+                            <% } else { %>
+                                <!-- Création des champs modifiables -->
+                                <input class="input" type="<%= Object.values(rows)[j].type %>"
+                                    name="<%= Object.keys(rows)[j] %>" value="">
+                            <% } %>
+                        </div>
+                    </div>
+                </div>
+
+                <% if(j % 2 == 1 || j == Object.keys(rows).length - 1) { %>
+            </div>
+            <% } %>
+            <% } %>
+            <!-- Envoie des données du Formulaire -->
+            <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+            <button class="button"><i class="las la-save"></i> Enregistrer les modifications</button>
+        </form>
+
+        <!-- Suppression -->  
+        <form method="post" action="?_method=DELETE">
+            <input type="hidden" name="_method" value="DELETE">
+            <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+            <button class="button is-danger button-danger" style="margin-top: 20px;"  <% if(Object.values(parentKeys).length != 0) { %>disabled<% } %>><i class="las la-trash"></i> Supprimer</button>
+        </form>
+       
+    </div>
+    <!-- Import de suwp et navbar js -->
+    <script src="/js/main.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,59 @@
+<nav class="navbar navcolor" role="navigation" aria-label="main navigation">
+    <div class="navbar-brand">
+        <a class="navbar-item">
+            <img src="https://cdn.discordapp.com/attachments/938359721096777768/938361800720781342/accesslight-logo.png">
+          </a>
+  
+      <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false" data-target="navbarBasicExample">
+        <span aria-hidden="true"></span>
+        <span aria-hidden="true"></span>
+        <span aria-hidden="true"></span>
+      </a>
+    </div>
+
+    <div id="navbarBasicExample" class="navbar-menu">
+      <div class="navbar-start">
+        <div class="navbar-start">
+            <a class="navbar-item" href="/">
+                <span class="icon"><i class="las la-home"></i></span>
+                <span>Accueil</span>
+            </a>
+            <a class="navbar-item" href="/batiment">
+                <span class="icon"><i class="las la-map"></i></span>
+                <span>Plan</span>
+            </a>
+            <a class="navbar-item" href="/historique">
+                <span class="icon"><i class="las la-history"></i></span>
+                <span>Historique</span>
+            </a>
+            <a class="navbar-item" href="/badges">
+                <span class="icon"><i class="las la-id-badge"></i></span>
+                <span>Liste des badges</span>
+            </a>
+            <a class="navbar-item" href="/users">
+                <span class="icon"><i class="las la-user"></i></span>
+                <span>Utilisateurs</span>
+            </a>
+            </div>
+      </div>
+  
+      <div class="navbar-end">
+        <div class="navbar-item">
+            <div class="block">
+                <span class="tag is-large is-rounded is-warning is-light">
+                    <span class="icon px-5">
+                    <i class="las la-user"></i>
+                    </span>
+                    Connecté en tant que <%= user.first_name %>
+                </span>
+                <a class="button is-danger" href="/logout">
+                    <span class="icon">
+                    <i class="las la-sign-out-alt"></i>
+                    </span>
+                    <span>Se déconnecter</span>
+                </a>
+            </div>
+        </div>
+      </div>
+    </div>
+  </nav>

@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="fr">
+    <!-- Affichage liste -->
+<head>
+    <%- include('layout/head.ejs'); %>
+</head>
+
+<body>
+    <!-- Import de la barre de navigation -->
+    <%- include('layout/navigation.ejs'); %>
+
+    <div class="content" id="swup">
+        <!-- Nom de la page -->
+        <h3 class="title is-3"><%= pageName %></h3>
+
+
+        <!-- Affichage liste batiment -->
+        <div class="section"> 
+        <h4 class="title"><%= pageName1 %></h4>
+        <a class="button" href="/new/<%= entityName1 %>"><i class="las la-plus"></i> Ajouter un <%= entityName1 %></a>
+
+        <% if(note) { %>
+            <div class="note-<%= note.type %>">
+                <p class="note-text"><%- note.text %></p>
+            </div>
+        <% } %>
+
+        <table class="table">
+            <thead>
+                <tr>
+                    <% for (var i = 0; i < Object.values(rows1).length; i++) { if(!Object.values(rows1)[i].doNotDisplay) { %>
+                    <th><%= Object.values(rows1)[i].displayName %></th>
+                    <% }} %>
+                </tr>
+            </thead>
+            <tbody>
+
+                    <% for (var i = 0; i < data1.length; i++) { %>
+                    <tr class="data">
+                        <% for (var j = 0; j < Object.keys(rows1).length; j++) { %>
+                            <% if((Object.values(rows1)[j].isPrimaryKey || Object.values(rows1)[j].isForeignKey) && Object.values(rows1)[j].showLink) { %>
+                            <td>
+                                <a href="/<%=entityName1 %>/<%= data1[i][Object.keys(rows1)[j]] %>"><%= data1[i][Object.keys(rows1)[j]] %>&nbsp;&nbsp;<i class="las la-external-link-alt"></i></a>
+                            </td>
+                            <% } else if(!Object.values(rows1)[j].doNotDisplay) { %>
+                            <td><%= data1[i][Object.keys(rows1)[j]] %></td>
+                            <% } %>
+                        <% } %>
+                    </tr>
+                    <% } %>
+            </tbody>
+        </table>
+        <div class="modal" id="modal-create">
+            <div class="modal-background"></div>
+            <div class="modal-card">
+                <form method="POST">
+                <header class="modal-card-head">
+                    <p class="modal-card-title">Créer <%= entityName1 %></p>
+                    <button type="button" class="delete" aria-label="close" onclick="showModal('modal-create', false)"></button>
+                </header>
+                <section class="modal-card-body">
+                    <% for (var j=0; j < Object.keys(rows1).length; j++) { if(!Object.values(rows1)[j].autoIncrement) {%>
+                    <div class="field">
+                        <label class="label" for="<%= Object.values(rows1)[j] %>">
+                            <%= Object.values(rows1)[j].displayName %>
+                        </label>
+                        <div class="control">
+                            <input class="input" type="<%= Object.values(rows1)[j].type %>" name="<%= Object.keys(rows1)[j] %>" value="">
+                        </div>
+                    </div>
+                    <% }} %>
+                </section>
+                <footer class="modal-card-foot">
+                    <button class="button is-success" onclick="showModal('modal-create', false)">Confirmer la création du batiment</button>
+                </footer>
+                </form>
+            </div>
+        </div>
+ 
+        <!-- Affichage liste ailes -->
+    </div><div class="section">
+        <h4 class="title"><%= pageName2 %></h4>
+    <a class="button" href="/new/<%= entityName2 %>"><i class="las la-plus"></i> Ajouter une <%= entityName2 %></a>
+
+        <% if(note) { %>
+            <div class="note-<%= note.type %>">
+                <p class="note-text"><%- note.text %></p>
+            </div>
+        <% } %>
+        <table class="table">
+            <thead>
+                <tr>
+                    <% for (var i = 0; i < Object.values(rows2).length; i++) { if(!Object.values(rows2)[i].doNotDisplay) { %>
+                    <th><%= Object.values(rows2)[i].displayName %></th>
+                    <% }} %>
+                </tr>
+            </thead>
+            <tbody>
+
+                    <% for (var i = 0; i < data2.length; i++) { %>
+                    <tr class="data">
+                        <% for (var j = 0; j < Object.keys(rows2).length; j++) { %>
+                            <% if((Object.values(rows2)[j].isPrimaryKey || Object.values(rows2)[j].isForeignKey) && Object.values(rows2)[j].showLink) { %>
+                            <td>
+                                <a href="/<%= entityName2 %>/<%= data2[i][Object.keys(rows2)[j]] %>"><%= data2[i][Object.keys(rows2)[j]] %>&nbsp;&nbsp;<i class="las la-external-link-alt"></i></a>
+                            </td>
+                            <% } else if(!Object.values(rows2)[j].doNotDisplay) { %>
+                            <td><%= data2[i][Object.keys(rows2)[j]] %></td>
+                            <% } %>
+                        <% } %>
+                    </tr>
+                    <% } %>
+            </tbody>
+        </table>
+        <div class="modal" id="modal-create">
+            <div class="modal-background"></div>
+            <div class="modal-card">
+                <form method="POST">
+                <header class="modal-card-head">
+                    <p class="modal-card-title">Créer <%= entityName2 %></p>
+                    <button type="button" class="delete" aria-label="close" onclick="showModal('modal-create', false)"></button>
+                </header>
+                <section class="modal-card-body">
+                    <% for (var j=0; j < Object.keys(rows2).length; j++) { if(!Object.values(rows2)[j].autoIncrement) {%>
+                    <div class="field">
+                        <label class="label" for="<%= Object.values(rows2)[j] %>">
+                            <%= Object.values(rows2)[j].displayName %>
+                        </label>
+                        <div class="control">
+                            <input class="input" type="<%= Object.values(rows2)[j].type %>" name="<%= Object.keys(rows2)[j] %>" value="">
+                        </div>
+                    </div>
+                    <% }} %>
+                </section>
+                <footer class="modal-card-foot">
+                    <button class="button is-success" onclick="showModal('modal-create', false)">Confirmer la création de l'aile</button>
+                </footer>
+                </form>
+            </div>
+        </div>
+    </div><div class="section">
+
+        <!-- Affichage liste salles -->
+        <h4 class="title"><%= pageName3 %></h4>
+    <a class="button" href="/new/<%= entityName3 %>"><i class="las la-plus"></i> Ajouter une <%= entityName3 %></a>
+
+        <% if(note) { %>
+            <div class="note-<%= note.type %>">
+                <p class="note-text"><%- note.text %></p>
+            </div>
+        <% } %>
+        <table class="table">
+            <thead>
+                <tr>
+                    <% for (var i = 0; i < Object.values(rows3).length; i++) { if(!Object.values(rows3)[i].doNotDisplay) { %>
+                    <th><%= Object.values(rows3)[i].displayName %></th>
+                    <% }} %>
+                </tr>
+            </thead>
+            <tbody>
+
+                    <% for (var i = 0; i < data3.length; i++) { %>
+                    <tr class="data">
+                        <% for (var j = 0; j < Object.keys(rows3).length; j++) { %>
+                            <% if((Object.values(rows3)[j].isPrimaryKey || Object.values(rows3)[j].isForeignKey) && Object.values(rows3)[j].showLink) { %>
+                            <td>
+                                <a href="/<%= entityName3 %>/<%= data3[i][Object.keys(rows3)[j]] %>"><%= data3[i][Object.keys(rows3)[j]] %>&nbsp;&nbsp;<i class="las la-external-link-alt"></i></a>
+                            </td>
+                            <% } else if(!Object.values(rows3)[j].doNotDisplay) { %>
+                            <td><%= data3[i][Object.keys(rows3)[j]] %></td>
+                            <% } %>
+                        <% } %>
+                    </tr>
+                    <% } %>
+            </tbody>
+        </table>
+        <div class="modal" id="modal-create">
+            <div class="modal-background"></div>
+            <div class="modal-card">
+                <form method="POST">
+                <header class="modal-card-head">
+                    <p class="modal-card-title">Créer <%= entityName3 %></p>
+                    <button type="button" class="delete" aria-label="close" onclick="showModal('modal-create', false)"></button>
+                </header>
+                <section class="modal-card-body">
+                    <% for (var j=0; j < Object.keys(rows3).length; j++) { if(!Object.values(rows3)[j].autoIncrement) {%>
+                    <div class="field">
+                        <label class="label" for="<%= Object.values(rows3)[j] %>">
+                            <%= Object.values(rows3)[j].displayName %>
+                        </label>
+                        <div class="control">
+                            <input class="input" type="<%= Object.values(rows3)[j].type %>" name="<%= Object.keys(rows3)[j] %>" value="">
+                        </div>
+                    </div>
+                    <% }} %>
+                </section>
+                <footer class="modal-card-foot">
+                    <button class="button is-success" onclick="showModal('modal-create', false)">Confirmer la création de la salle</button>
+                </footer>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+<!-- Import de suwp et navbar js -->
+    <script src="/js/main.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="fr">
+ <!-- Affichage page de connexion -->
+<head>
+     <!-- Import du header -->
+    <%- include('layout/head.ejs'); %>
+    <link rel="stylesheet" href="/css/showcase.css">
+</head>
+
+<body> 
+    <div class="content background-login">
+        <div class="columns">
+            <div class="column is-8">
+                <div class="box hello-box">
+                    <div class="columns">
+                        <div class="column is-7">
+                            <h1 class="title">AccessLight</h1>
+                            <h2 class="title">Gestion des accès du laboratoire GSB.</h2>
+                        </div>
+                        <div class="column">
+                            <figure class="image is-128x128 is-inline-block">
+                                <img class="gsb-logo" src="css/gsb_logo.png" alt="GSB logo">
+                            </figure>
+                        </div>
+                    </div>
+                    <h4 class="text is-4">Veuillez vous connecter afin de voir le plan du campus GSB et vos accès en fonction de votre badge.</h4>
+                    <br>
+                    <h4 class="text is-4"><i>En cas de problème, veuillez prendre contact avec le service informatique.</i></h4>
+                    <br>
+                </div>
+            </div>
+            <div class="column">
+                
+                <!-- Formulaire de connexion -->
+                <form method="POST">
+                    <div class="login-box">
+                        <h3 class="title is-3">Connexion</h3>
+                        <% if(error) { %>
+                        <p class="error-title"><i class="las la-ban"></i> Accès refusé</p>
+                        <p class="error"><%= error %></p>
+                        <% } %>
+                        
+                        <% if(success) { %>
+                            <p class="success-title"><i class="las la-check"></i> Connexion réussie</p>
+                            <p class="success"><%= success %></p>
+                            <script>setTimeout(() => window.location.href='/', 3000);</script>
+                        <% } %>
+                        
+                        <% if(!success) { %>
+                        <div class="field">
+                            <label class="label" for="email">
+                                Adresse e-mail
+                            </label>
+                            <div class="control">
+                                <input class="input" type="email" name="email" value="">
+                            </div>
+                        </div>
+        
+                        <div class="field">
+                            <label class="label" for="password">
+                                Mot de passe
+                            </label>
+                            <div class="control">
+                                <input class="input" type="password" name="password" value="">
+                            </div>
+                        </div>
+        
+                        <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+                        <button class="button"><i class="las la-sign-in-alt"></i> Connexion</button>
+                        <% } %>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <div class="box contact-box has-text-centered">
+            <h4 class="text">Tous droits réservés 2022 : Groupe GSB</h4>
+            <h4 class="text"><a class="link" href="https://github.com/CorentinJacquier/AccessLight">Github</a> - <a class="link" href="https://corentin-jacquier.fr/">Site officiel</a></h4>
+        </div>
+    </div>
+</body>
+
+</html>

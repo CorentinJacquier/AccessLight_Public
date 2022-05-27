@@ -1,0 +1,38 @@
+html {
+    height: 100%;
+  }
+body  {
+
+    min-height: 100%;
+    background: linear-gradient(90deg, #c7b198, #596e79, #c7b198);
+    background-size: 600% 600%;
+  
+    -webkit-animation: ShowcaseAnnim 15s ease infinite;
+    -moz-animation: ShowcaseAnnim 15s ease infinite;
+    -o-animation: ShowcaseAnnim 15s ease infinite;
+    animation: ShowcaseAnnim 15s ease infinite;
+
+    overflow: hidden; 
+  }
+  
+  @-webkit-keyframes ShowcaseAnnim {
+    0%{background-position:0% 51%}
+    50%{background-position:100% 50%}
+    100%{background-position:0% 51%}
+  }
+  @-moz-keyframes ShowcaseAnnim {
+    0%{background-position:0% 51%}
+    50%{background-position:100% 50%}
+    100%{background-position:0% 51%}
+  }
+  @-o-keyframes ShowcaseAnnim {
+    0%{background-position:0% 51%}
+    50%{background-position:100% 50%}
+    100%{background-position:0% 51%}
+  }
+  @keyframes ShowcaseAnnim {
+    0%{background-position:0% 51%}
+    50%{background-position:100% 50%}
+    100%{background-position:0% 51%}
+  }
+  

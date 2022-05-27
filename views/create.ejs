@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="fr">
+<!-- Affichage de la creation -->
+<head>
+    <!-- Import du header -->
+    <%- include('layout/head.ejs'); %>
+</head>
+
+<body>
+    <!-- Import de la barre de navigation -->
+    <%- include('layout/navigation.ejs'); %>
+
+    <div class="content" id="swup">
+        <h3 class="title is-3"><%= pageName %></h3>
+        
+        <form method="POST">
+            <% for (var j=0; j < Object.keys(rows).length; j++) {%>
+            <% if(j % 2 == 0) { %>
+            <div class="columns">
+                <% } %>
+
+                <div class="column">
+                    <div class="field">
+                        <label class="label" for="<%= Object.keys(rows)[j] %>">
+                            <%= Object.values(rows)[j].displayName %>
+                        </label>
+                        <div class="control">
+                            <% if(Object.values(rows)[j].autoIncrement) { %>
+                                <input class="input" type="text" disabled value="Défini automatiquement">
+                            <% } else if(Object.values(rows)[j].isForeignKey && Object.values(rows)[j].referenceColumn) { %>
+                                <div class="select" style="width: 100%">
+                                    <select required style="width: 100%" name="<%= Object.keys(rows)[j] %>">
+                                    <% for(let m = 0; m < foreignKeys[Object.keys(rows)[j]].length; m++) { %>
+                                        <option value="<%= foreignKeys[Object.keys(rows)[j]][m].id %>"><%= foreignKeys[Object.keys(rows)[j]][m].display %></option>
+                                    <% } %>
+                                    </select>
+                                </div>
+                            <% } else { %>
+                                <input required class="input" type="<%= Object.values(rows)[j].type %>"
+                                    name="<%= Object.keys(rows)[j] %>" minlength="<%= Object.values(rows)[j].minlength ? Object.values(rows)[j].minlength : 0 %>" maxlength="<%= Object.values(rows)[j].maxlength ? Object.values(rows)[j].maxlength : 255 %>" <%= Object.values(rows)[j].pattern ? ('pattern=' + Object.values(rows)[j].pattern) : "" %> value="">
+                            <% } %>
+                        </div>
+                    </div>
+                </div>
+
+                <% if(j % 2 == 1 || j == Object.keys(rows).length - 1) { %>
+            </div>
+            <% } %>
+            <% } %>
+
+            <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+            <button class="button"><i class="las la-check"></i> Confirmer l'ajout</button>
+            <a class="button button-danger" href="<%= redirectPath %>"><i class="las la-times"></i> Annuler</a>
+        </form>
+    </div>
+    <!--Import de suwp et navbar js-->
+    <script src="/js/main.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="fr">
+<!-- Affichage d'une erreur -->
+<head>
+    <!-- Import du header -->
+    <%- include('layout/head.ejs'); %>
+</head>
+
+<body>
+    <!-- Import de la barre de navigation -->
+    <%- include('layout/navigation.ejs'); %>
+
+    <div class="content" id="swup">    
+        <h2 class="error-icon"><i class="las la-exclamation-circle"></i></h2>        
+        <h2 class="error-title"><%= errorTitle %></h2>
+        <p class="error-text"><%= errorText %></p>
+        <!-- Bouton retour page précédente -->
+        <% if(lastUrl) { %>
+        <div class="center">
+            <a class="button" href="<%= lastUrl %>"><i class="las la-undo"></i> Retour à la page précédente</a>
+        </div>
+        <% } %>
+    </div>
+    <!-- Import de suwp et navbar js -->
+    <script src="/js/main.js"></script>
+</body>
+</html>

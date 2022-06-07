@@ -158,33 +158,32 @@ class Controller {
             where: whereClauses
         });
 
-        var foreignKeys = {};
-        var parentKeys = {};
-
-        for (let i = 0; i < Object.keys(rows[entityName]).length; i++) {
-            var value = Object.values(rows[entityName])[i];
-            var key = Object.keys(rows[entityName])[i];
-            
-            //affichage des champs remplis
-            if (value.isForeignKey && value.references && value.referenceColumn && value.referenceDisplayColumn) {
-                var dbData = await database.selectIdDisplay(value.references, value.referenceColumn, value.referenceDisplayColumn);
-                foreignKeys[key] = dbData;
-            }
-           
-            //verif des sous champs du parent
-            if(value.isParent && value.parent && value.referenceParent && value.referenceDisplayColumn) {
-                var dbData = await database.selectIdDisplay(value.parent, value.referenceParent, value.referenceDisplayColumn);
-                for (var j=0; j < Object.keys(dbData).length; j++) {
-                    if (data.Code == Object.values(dbData)[j].id || data.num == Object.values(dbData)[j].id){
-                        parentKeys += Object.values(dbData)[j];
-                    }
-                }
-            } 
-        }
-        
-       //console.log(parentKeys);
-
         if (data) {
+
+            var foreignKeys = {};
+            var parentKeys = {};
+
+            for (let i = 0; i < Object.keys(rows[entityName]).length; i++) {
+                var value = Object.values(rows[entityName])[i];
+                var key = Object.keys(rows[entityName])[i];
+                
+                //affichage des champs remplis
+                if (value.isForeignKey && value.references && value.referenceColumn && value.referenceDisplayColumn) {
+                    var dbData = await database.selectIdDisplay(value.references, value.referenceColumn, value.referenceDisplayColumn);
+                    foreignKeys[key] = dbData;
+                }
+            
+                //verif des sous champs du parent
+                if(value.isParent && value.parent && value.referenceParent && value.referenceDisplayColumn) {
+                    var dbData = await database.selectIdDisplay(value.parent, value.referenceParent, value.referenceDisplayColumn);
+                    for (var j=0; j < Object.keys(dbData).length; j++) {
+                        if (data.Code == Object.values(dbData)[j].id || data.num == Object.values(dbData)[j].id){
+                            parentKeys += Object.values(dbData)[j];
+                        }
+                    }
+                } 
+            }
+
             res.render('show', {
                 data: data,
                 rows: rows[entityName],
@@ -356,8 +355,7 @@ class Controller {
             where: whereClauses
         });
 
-    
-
+        //supprime les données (destroy)
         if (data) {
             await entityModel.destroy({
                 where: whereClauses

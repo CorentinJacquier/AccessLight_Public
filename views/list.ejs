@@ -63,11 +63,11 @@
         </thead>
         <!-- Affichage données des lignes -->
         <tbody>
-          <% if(entityName != "historique") { %> <% for (var i = 0; i <
-          data.length; i++) { %>
-          <tr class="data">
-            <% for (var j = 0; j < Object.keys(rows).length; j++) { %> <%
-            if((Object.values(rows)[j].isPrimaryKey ||
+          <% if(entityName != "historique") { %> 
+            <% for (var i = 0; i <data.length; i++) { %>
+            <tr class="data">
+            <% for (var j = 0; j < Object.keys(rows).length; j++) { %> 
+            <% if((Object.values(rows)[j].isPrimaryKey ||
             Object.values(rows)[j].isForeignKey) &&
             Object.values(rows)[j].showLink) { %>
             <td>
@@ -81,15 +81,18 @@
             <% } else if(!Object.values(rows)[j].doNotDisplay) { %>
             <td><%= data[i][Object.keys(rows)[j]] %></td>
             <% } %> <% } %>
-          </tr>
-          <% } %> <% } else { %> <% for (var i = 0; i < data.length; i++) { %>
+            </tr>
+          <% } %> 
+          <% } else { %> 
+            <% for (var i = 0; i < data.length; i++) { %>
             <% if(badge == data[i].badge || admin == true) { %> <%
             if(data[i].status == "authorized") { %>
             <tr class="success">
               <% } else { %>
             </tr>
             <tr class="error">
-              <% } %> <% for (var j = 0; j < Object.keys(rows).length; j++) { %>
+              <% } %> 
+              <% for (var j = 0; j < Object.keys(rows).length; j++) { %>
               <% if((Object.values(rows)[j].isPrimaryKey ||
               Object.values(rows)[j].isForeignKey) &&
               Object.values(rows)[j].showLink) { %>
@@ -97,8 +100,8 @@
                 <a
                   href="/<%= Object.values(rows)[j].references %>/<%= data[i][Object.keys(rows)[j]] %>"
                   ><%= data[i][Object.keys(rows)[j]] %>&nbsp;&nbsp;<i
-                    class="las la-external-link-alt"
-                  ></i
+                    class="las la-external-link-alt">
+                    </i
                 ></a>
               </td>
               <% } else if(!Object.values(rows)[j].doNotDisplay) { %>
@@ -120,8 +123,8 @@
                 type="button"
                 class="delete"
                 aria-label="close"
-                onclick="showModal('modal-create', false)"
-              ></button>
+                onclick="showModal('modal-create', false)">
+                </button>
             </header>
             <section class="modal-card-body">
               <% for (var j=0; j < Object.keys(rows).length; j++) {
@@ -144,8 +147,7 @@
             <footer class="modal-card-foot">
               <button
                 class="button is-success"
-                onclick="showModal('modal-create', false)"
-              >
+                onclick="showModal('modal-create', false)">
                 Confirmer la création
               </button>
             </footer>

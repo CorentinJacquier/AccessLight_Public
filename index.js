@@ -102,5 +102,8 @@ app.delete('/users/:identifier', (res, req) => Controller.handleDelete(res, req,
 //routes gestion des erreurs de création
 app.get('/new/error', (res, req) => Controller.showCreateError(res, req, "admin"));
 
+//route pages inexistantes
+app.get('*', (req, res) => Controller.showHomepage(req, res, Badges, Rang));
+
 //port de l'application (port de l'host et 30 en local)
 app.listen(process.env.PORT || 30); 

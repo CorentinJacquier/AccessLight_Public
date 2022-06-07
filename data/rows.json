@@ -144,8 +144,8 @@
             "references": "",
             "maxlength": 15
         },
-        "Position": {
-            "displayName": "Position du batiment",
+        "Adresse": {
+            "displayName": "Adresse du batiment",
             "type": "text",
             "isPrimaryKey": false,
             "isForeignKey": false,

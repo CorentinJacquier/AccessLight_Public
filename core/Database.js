@@ -25,7 +25,7 @@ class Database {
                 type: DataTypes.STRING,
                 allowNull: false
             },
-            Position: {
+            Adresse: {
                 type: DataTypes.STRING,
                 allowNull: false
             },
